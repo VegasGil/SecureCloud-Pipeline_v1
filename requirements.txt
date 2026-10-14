@@ -1,0 +1,4 @@
+sigma-cli
+pysigma-backend-splunk
+pysigma-backend-kusto
+pre-commit
