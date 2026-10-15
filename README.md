@@ -36,4 +36,4 @@ Los fixes se aplican al final de la Fase 2 como cierre del ciclo.
 - `detection-ci.yml` → valida reglas Sigma (Fase 1).
 - `sast-ci.yml` → Semgrep sobre `app/` (Fase 2).
 - `sca-ci.yml` → Trivy sobre `app/` (Fase 2, próximamente).
-![mailbox](semgrep.png)
+![semgrep](semgrep.png)
