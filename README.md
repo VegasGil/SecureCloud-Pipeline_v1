@@ -28,3 +28,4 @@ pip install -r requirements.txt
   jinja2 2.10, requests 2.19.0 (5 HIGH + 2 CRITICAL).
 
 ![sca vulnerabilidad](./sca.png)
+![sca vulnerabilidad](./sca1.png)

@@ -1,0 +1,31 @@
+name: IaC CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'infra/**'
+      - 'k8s/**'
+      - '.github/workflows/iac-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'infra/**'
+      - 'k8s/**'
+
+jobs:
+  checkov:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Checkov
+        run: pip install checkov
+
+      - name: Run Checkov
+        run: checkov -d infra/ -d k8s/ --framework terraform,kubernetes --hard-fail-on HIGH,CRITICAL --output cli
