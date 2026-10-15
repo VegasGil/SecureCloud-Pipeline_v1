@@ -17,7 +17,7 @@ detection:
   condition: selection_img and selection_cli
 falsepositives:
   - Administración legítima de PKI
-level: nonsense
+level: high
 tags:
   - attack.stealth
   - attack.t1140
