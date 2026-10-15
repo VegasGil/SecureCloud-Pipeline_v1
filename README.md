@@ -22,10 +22,10 @@ pip install -r requirements.txt
 
 - **SAST (Semgrep)**: command injection (`shell=True`), `eval()`.
 
-![semgrep](./semgrep.png)
+![semgrep](/docs/semgrep.png)
 
 - **SCA (Trivy)**: pyyaml 3.13 (CVE-2017-18342, CRITICAL), flask 0.12.2, 
   jinja2 2.10, requests 2.19.0 (5 HIGH + 2 CRITICAL).
 
-![sca vulnerabilidad](./sca.png)
-![sca vulnerabilidad](./sca1.png)
+![sca vulnerabilidad](/docs/sca.png)
+![sca vulnerabilidad](/docs/sca1.png)
