@@ -13,15 +13,18 @@ python -m venv .venv
 source .venv/bin/activate
 # Windows:
 # .venv\Scripts\activate
-# deativate
+# deactivate
 
 python.exe -m pip install --upgrade pip
 pip install -r requirements.txt
 
+## Vulnerabilidades deliberadas
 
-### Flujos de trabajo activos
-- `detection-ci.yml` → Valida reglas Sigma (Fase 1).
-- `sast-ci.yml` → Semgrep sobre `app/` (Fase 2, SAST).
-- `sca-ci.yml` → Trivy sobre dependencias de `app/` (Fase 2, SCA).
+- **SAST (Semgrep)**: command injection (`shell=True`), `eval()`.
 
 ![semgrep](./semgrep.png)
+
+- **SCA (Trivy)**: pyyaml 3.13 (CVE-2017-18342, CRITICAL), flask 0.12.2, 
+  jinja2 2.10, requests 2.19.0 (5 HIGH + 2 CRITICAL).
+
+![sca vulnerabilidad](./sca.png)

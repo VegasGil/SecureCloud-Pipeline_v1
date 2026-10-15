@@ -1,0 +1,28 @@
+name: SCA CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - '.github/workflows/sca-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'app/**'
+
+jobs:
+  trivy:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run Trivy (SCA)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: 'fs'
+          scan-ref: 'app/'
+          scanners: 'vuln'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
+          format: 'table'
