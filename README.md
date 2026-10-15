@@ -18,14 +18,22 @@ source .venv/bin/activate
 python.exe -m pip install --upgrade pip
 pip install -r requirements.txt
 
-## Vulnerabilidades deliberadas
+## Hallazgos detectados por el pipeline
 
-- **SAST (Semgrep)**: command injection (`shell=True`), `eval()`.
+### SAST — Semgrep
+\`\`\`
+app/main.py
+  python.lang.security.audit.dangerous-subprocess-use
+  python.lang.security.audit.eval-detected
+\`\`\`
 
-![semgrep](/docs/semgrep.png)
+### SCA — Trivy
+| Librería | CVE | Severidad | Fix |
+|---|---|---|---|
+| pyyaml 3.13 | CVE-2017-18342 | CRITICAL | 5.1 |
+| flask 0.12.2 | CVE-2018-1000656 | HIGH | 0.12.3 |
+...
 
-- **SCA (Trivy)**: pyyaml 3.13 (CVE-2017-18342, CRITICAL), flask 0.12.2, 
-  jinja2 2.10, requests 2.19.0 (5 HIGH + 2 CRITICAL).
-
-![sca vulnerabilidad](/docs/sca.png)
-![sca vulnerabilidad](/docs/sca1.png)
+### IaC — Checkov
+- Terraform: 11 FAILED (`CKV_AWS_20`, `CKV_AWS_24`, `CKV2_AWS_6`...)
+- Kubernetes: 20 FAILED (`CKV_K8S_16`, `CKV_K8S_23`, `CKV_K8S_14`...)
