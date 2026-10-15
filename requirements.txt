@@ -5,3 +5,4 @@ pysigma-backend-elasticsearch
 pre-commit
 pytest
 pyyaml
+semgrep
