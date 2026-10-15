@@ -16,4 +16,6 @@ source .venv/bin/activate
 # deativate
 
 python.exe -m pip install --upgrade pip
-pip install sigma-cli
+pip install -r requirements.txt
+
+

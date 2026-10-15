@@ -1,4 +1,7 @@
 sigma-cli
 pysigma-backend-splunk
 pysigma-backend-kusto
+pysigma-backend-elasticsearch
 pre-commit
+pytest
+pyyaml

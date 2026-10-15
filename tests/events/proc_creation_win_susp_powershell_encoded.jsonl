@@ -1,0 +1,3 @@
+{"EventID":1,"Image":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","CommandLine":"powershell.exe -enc SQBFAFgA","User":"CORP\\jdoe","_match":true}
+{"EventID":1,"Image":"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe","CommandLine":"powershell.exe -Command Get-Process","User":"CORP\\jdoe","_match":false}
+{"EventID":1,"Image":"C:\\Windows\\System32\\cmd.exe","CommandLine":"cmd.exe /c whoami","User":"CORP\\jdoe","_match":false}
