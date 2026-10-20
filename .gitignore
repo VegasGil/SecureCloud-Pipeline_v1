@@ -3,7 +3,5 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .venv-scanners/
+aspm/data/
 
-
-# Notas personales
-*.scaners.md
