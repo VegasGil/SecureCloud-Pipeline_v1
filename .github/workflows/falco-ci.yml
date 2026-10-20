@@ -1,0 +1,23 @@
+name: Falco CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'falco/**'
+      - '.github/workflows/falco-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'falco/**'
+
+jobs:
+  validate-rules:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Validate Falco Rules (Docker)
+        run: |
+          docker run --rm -v ${{ github.workspace }}/falco/rules:/rules \
+            falcosecurity/falco:latest falco --validate /rules/custom_rules.yaml
