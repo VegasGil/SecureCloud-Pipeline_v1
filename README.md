@@ -7,7 +7,7 @@
 
 Pipeline incremental de seguridad que combina **Detection-as-Code**, **DevSecOps** y **gestión de exposición** sobre un stack Terraform + Kubernetes + Python.
 
-## Pipeline de seguridad (capas activas)
+## Pipeline de seguridad (6 capas activas)
 
 | Capa | Herramienta | Workflow | Objetivo |
 |---|---|---|---|
@@ -15,20 +15,23 @@ Pipeline incremental de seguridad que combina **Detection-as-Code**, **DevSecOps
 | SAST | Semgrep | `sast-ci.yml` | Patrones inseguros en código Python |
 | SCA | Trivy | `sca-ci.yml` | CVEs en dependencias |
 | IaC | Checkov | `iac-ci.yml` | Misconfiguraciones en Terraform + Kubernetes |
+| ASPM | Trivy + EPSS + KEV | `aspm-ci.yml` | Priorización de CVEs por riesgo real de explotación |
+| Runtime Security | Falco | `falco-ci.yml` | Detección en caliente (ej. shell en contenedor) |
 
 ## Estructura del repositorio
 
-\`\`\`
+```text
 .
-├── .github/workflows/    # CI: detection, SAST, SCA, IaC
+├── .github/workflows/    # CI: detection, SAST, SCA, IaC, ASPM, Falco
 ├── app/                  # App demo Python (target de SAST/SCA)
+├── aspm/                 # Motor de priorización (EPSS + KEV)
+├── falco/rules/          # Reglas de runtime security
 ├── infra/                # Terraform (target de Checkov)
 ├── k8s/                  # Manifiestos K8s (target de Checkov)
 ├── detections/windows/   # Reglas Sigma
 ├── tests/                # Tests de reglas Sigma con eventos sintéticos
 ├── .pre-commit-config.yaml
 └── requirements.txt
-\`\`\`
 
 ## Hallazgos detectados (vulnerabilidades deliberadas)
 
@@ -63,12 +66,19 @@ Las herramientas tradicionales priorizan por severidad (`CRITICAL`, `HIGH`). Est
 
 El script `aspm/prioritize.py` genera un **Risk Score** combinando: `Severidad (peso base) + EPSS (probabilidad) + KEV (+20 pts si es explotada activamente)`.
 
-Ejemplo de ranking generado en el CI:
+## Ejemplo de ranking generado en el CI:
 | CVE | Paquete | Sev | EPSS | KEV | Risk Score |
 |---|---|---|---|---|---|
 | CVE-2020-14343 | pyyaml | CRITICAL | 0.060 | no | 10.6 |
 | CVE-2017-18342 | pyyaml | CRITICAL | 0.057 | no | 10.6 |
 | CVE-2018-18074 | requests | HIGH | 0.074 | no | 7.7 |
+
+
+
+### Runtime Security — Falco
+
+Mientras que SAST, SCA y IaC analizan el código *antes* de desplegar, Falco detecta amenazas *en tiempo de ejecución* (Runtime). 
+En este proyecto validamos una regla custom de Detection-as-Code (`falco/rules/custom_rules.yaml`) que alerta si se abre una terminal interactiva dentro de un contenedor Kubernetes.
 
 ## Cómo ejecutar en local
 
