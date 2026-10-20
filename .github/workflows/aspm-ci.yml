@@ -24,27 +24,22 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      # Instalar Trivy de forma directa
       - name: Install Trivy
-          run: |
+        run: |
           wget https://github.com/aquasecurity/trivy/releases/download/v0.76.0/trivy_0.76.0_Linux-64bit.tar.gz
           tar zxvf trivy_0.76.0_Linux-64bit.tar.gz
           sudo mv trivy /usr/local/bin/
 
-      # Instalar dependencias de Python
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Ejecutar Trivy y generar el JSON
-      - name: Run Trivy (generar JSON)
+      - name: Run Trivy (generate JSON)
         run: trivy fs --scanners vuln --format json --output app_trivy.json app/ || true
 
-      # Descargar EPSS y KEV
       - name: Fetch EPSS & KEV
         run: python aspm/fetch_sources.py
 
-      # Ejecutar priorizador
-      - name: Run ASPM Priorization
+      - name: Run ASPM Prioritization
         run: python aspm/prioritize.py
