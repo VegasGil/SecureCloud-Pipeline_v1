@@ -26,9 +26,9 @@ jobs:
 
       # Instalar Trivy de forma directa
       - name: Install Trivy
-        run: |
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.59.0/trivy_0.59.0_Linux-64bit.tar.gz
-          tar zxvf trivy_0.59.0_Linux-64bit.tar.gz
+          run: |
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.76.0/trivy_0.76.0_Linux-64bit.tar.gz
+          tar zxvf trivy_0.76.0_Linux-64bit.tar.gz
           sudo mv trivy /usr/local/bin/
 
       # Instalar dependencias de Python
