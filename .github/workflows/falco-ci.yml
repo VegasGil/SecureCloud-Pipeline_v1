@@ -18,6 +18,4 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Validate Falco Rules (Docker)
-       run: |
-          docker run --rm -v ${{ github.workspace }}/falco/rules:/rules \
-            falcosecurity/falco:latest falco --validate /etc/falco/falco_rules.yaml /rules/custom_rules.yaml
+        run: docker run --rm -v ${{ github.workspace }}/falco/rules:/rules falcosecurity/falco:latest falco --validate /etc/falco/falco_rules.yaml /rules/custom_rules.yaml
